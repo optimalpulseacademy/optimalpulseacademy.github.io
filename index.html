@@ -95,6 +95,12 @@ h2{font-size:32px;line-height:1.2;color:var(--navy);margin:0 0 12px;font-weight:
 footer{background:var(--navy);color:#b9cad8;font-size:13.5px;padding:32px 0}
 footer p{margin:0 0 8px}
 footer a{color:#fff}
+/* keep site button style for Gumroad overlay buttons */
+a.btn.gumroad-button{all:unset;box-sizing:border-box;display:inline-block;cursor:pointer;padding:13px 22px;border-radius:8px;font-weight:900;font-size:16px;font-family:inherit;text-align:center;line-height:1.4}
+.fmt a.btn.gumroad-button{background:var(--navy);color:#fff;font-size:15px;padding:11px 14px;display:block}
+.hero a.btn.btn-ghost.gumroad-button{border:2px solid rgba(255,255,255,.55);color:#fff}
+.sample a.btn.btn-primary.gumroad-button{background:var(--mint);color:var(--navy)}
+a.btn.gumroad-button .gumroad-button-logo,a.btn.gumroad-button span.logo-full{display:none!important}
 </style>
 </head>
 <body>
@@ -117,7 +123,7 @@ footer a{color:#fff}
 <p class="lead">The Complete Guide to Provider Credentialing &amp; Enrollment takes you from first provider intake to Medicare, Medicaid, CAQH and commercial payer enrollment, and keeps working as a desk reference on the job.</p>
 <div class="btns">
 <a class="btn btn-primary" href="#buy">Get the guide</a>
-<a class="btn btn-ghost" href="https://optimalpulse.gumroad.com/l/qikms" target="_blank" rel="noopener">Free sample</a>
+<a class="btn btn-ghost gumroad-button" href="https://optimalpulse.gumroad.com/l/qikms">Free sample</a>
 </div>
 <p class="trust">Written by an <strong>AAPC-certified medical biller and coder</strong> working with US providers. Reviewed against official sources, November 2026.</p>
 </div>
@@ -180,7 +186,7 @@ footer a{color:#fff}
 <h2>Get the guide</h2>
 <p class="sub">Choose the format that suits you. All formats have the same content.</p>
 <div class="formats">
-<div class="fmt"><h3>PDF</h3><p>Instant download. Read on any device and print the templates.</p><a class="btn" href="https://optimalpulse.gumroad.com/l/ueukax" target="_blank" rel="noopener">Buy on Gumroad</a></div>
+<div class="fmt"><h3>PDF</h3><p>Instant download. Pay securely here on this page by card or PayPal.</p><a class="btn gumroad-button" href="https://optimalpulse.gumroad.com/l/ueukax">Buy now (card or PayPal)</a></div>
 <div class="fmt"><h3>PDF</h3><p>Same PDF, another checkout option.</p><a class="btn" href="https://payhip.com/b/hQi2H" target="_blank" rel="noopener">Buy on Payhip</a></div>
 <div class="fmt"><h3>Kindle</h3><p>Read in the Kindle app or on a Kindle device.</p><a class="btn" href="https://www.amazon.com/dp/B0GX9XPDHW" target="_blank" rel="noopener">Buy on Amazon</a></div>
 <div class="fmt"><h3>Paperback</h3><p>A printed copy for your desk, shipped by Amazon.</p><a class="btn" href="https://www.amazon.com/dp/B0HRL43DDR" target="_blank" rel="noopener">Buy on Amazon</a></div>
@@ -194,7 +200,7 @@ footer a{color:#fff}
 <h2>Not sure yet? Start free.</h2>
 <p>Download the free Provider Credentialing Document Checklist &amp; Flashcards and see how the guide is written.</p>
 </div>
-<a class="btn btn-primary" href="https://optimalpulse.gumroad.com/l/qikms" target="_blank" rel="noopener">Get the free sample</a>
+<a class="btn btn-primary gumroad-button" href="https://optimalpulse.gumroad.com/l/qikms">Get the free sample</a>
 </div>
 </div>
 </section>
@@ -231,5 +237,6 @@ footer a{color:#fff}
 <p><a href="mailto:info@optimalpulseacademy.com">info@optimalpulseacademy.com</a></p>
 </div>
 </footer>
+<script src="https://gumroad.com/js/gumroad.js"></script>
 </body>
 </html>

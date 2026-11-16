@@ -25,7 +25,7 @@
   .ar{font-family:Cairo,Lato,sans-serif;direction:rtl;text-align:right}
   section{padding:44px 0}
   h2{color:var(--navy);font-size:26px;margin:0 0 20px}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
   .card{border:1px solid var(--line);border-radius:12px;padding:24px;background:#fff}
   .card h3{margin:0 0 6px;color:var(--navy);font-size:19px}
   .price{font-size:34px;font-weight:900;color:var(--navy);margin:8px 0 2px}
@@ -68,8 +68,13 @@
       <div class="price">349.99 <small>EGP</small></div>
       <p>Printed copy delivered inside Egypt. Delivery cost depends on your area and is confirmed before you pay.</p>
     </div>
+    <div class="card">
+      <h3>Credentialing Toolkit</h3>
+      <div class="price">149.99 <small>EGP</small></div>
+      <p>Excel tracker workbook + 13-page PDF of checklists, call script and email templates. Sent to your email after payment.</p>
+    </div>
   </div>
-  <p style="color:var(--muted);font-size:15px;margin-top:18px">All prices are in Egyptian pounds (EGP) and include the full 16-module guide.</p>
+  <p style="color:var(--muted);font-size:15px;margin-top:18px">All prices are in Egyptian pounds (EGP).</p>
 </div></section>
 
 <section class="soft"><div class="wrap">

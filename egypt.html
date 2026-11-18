@@ -1,6 +1,17 @@
 <!doctype html>
 <html lang="en">
 <head>
+<!-- Google Analytics with cookie consent -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'});
+  gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:["AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE", "IS", "LI", "NO", "GB", "CH"]});
+  try{var c=localStorage.getItem('opa_cookies');if(c==='yes'){gtag('consent','update',{analytics_storage:'granted'});}if(c==='no'){gtag('consent','update',{analytics_storage:'denied'});}}catch(e){}
+  gtag('js', new Date());
+</script>
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-NL64JJQ8"></script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Buy in Egypt | OptimalPulse Academy</title>
@@ -98,5 +109,15 @@
 
 <footer><div class="wrap">© 2026 OptimalPulse Academy · Giza, Egypt · <a href="tel:+201015550417">+20 101 555 0417</a> · <a href="mailto:info@optimalpulseacademy.com">info@optimalpulseacademy.com</a><br>
 <a href="/refund-policy">Exchange &amp; refund policy</a> · <a href="/terms">Terms &amp; conditions</a> · <a href="/">optimalpulseacademy.com</a></div></footer>
+<div id="opa-cookie" style="display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;max-width:720px;margin:0 auto;background:#13304a;color:#fff;border-radius:12px;padding:14px 16px;font:14px/1.45 Lato,Arial,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.25);border:1px solid #3ccb97">
+<span>We use Google Analytics cookies to count visits and see which pages are useful. No advertising cookies.</span>
+<span style="display:inline-flex;gap:8px;margin-left:8px;vertical-align:middle"><button id="opa-yes" style="border:0;border-radius:8px;padding:7px 14px;font-weight:700;background:#3ccb97;color:#13304a;cursor:pointer">Accept</button><button id="opa-no" style="border:1px solid #fff;border-radius:8px;padding:7px 14px;font-weight:700;background:transparent;color:#fff;cursor:pointer">Decline</button></span>
+</div>
+<script>
+(function(){var b=document.getElementById('opa-cookie'),c=null;try{c=localStorage.getItem('opa_cookies')}catch(e){}
+if(!c){b.style.display='block'}
+function set(v){try{localStorage.setItem('opa_cookies',v)}catch(e){}gtag('consent','update',{analytics_storage:v==='yes'?'granted':'denied'});b.style.display='none'}
+document.getElementById('opa-yes').onclick=function(){set('yes')};document.getElementById('opa-no').onclick=function(){set('no')};})();
+</script>
 </body>
 </html>

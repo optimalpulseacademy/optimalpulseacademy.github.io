@@ -47,7 +47,7 @@ nav a:hover{color:var(--teal)}
 @media (max-width:720px){nav a.hide-m{display:none}}
 .hero{background:var(--navy);color:#fff;position:relative;overflow:hidden}
 .hero::before{content:"";position:absolute;left:0;top:0;bottom:0;width:10px;background:var(--teal)}
-.hero .wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:center;padding-top:72px;padding-bottom:72px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding-top:72px;padding-bottom:72px}
 .eyebrow{color:var(--mint);font-weight:900;letter-spacing:1.5px;font-size:13px;text-transform:uppercase;margin:0 0 14px}
 h1{font-size:44px;line-height:1.12;margin:0 0 18px;font-weight:900}
 .hero p.lead{font-size:19px;color:#d6e2ec;margin:0 0 28px;max-width:560px}
@@ -58,6 +58,12 @@ h1{font-size:44px;line-height:1.12;margin:0 0 18px;font-weight:900}
 .btn-ghost{border:2px solid rgba(255,255,255,.55);color:#fff}
 .cover{width:100%;max-width:300px;aspect-ratio:5/8;justify-self:center;border-radius:6px;box-shadow:0 22px 50px rgba(0,0,0,.45);background:#13314c;border-left:14px solid var(--teal);padding:34px 26px 24px;display:flex;flex-direction:column;color:#fff;text-align:left}
 .cover-img{width:100%;max-width:300px;height:auto;justify-self:center;border-radius:6px;box-shadow:0 22px 50px rgba(0,0,0,.45)}
+.books{display:flex;gap:18px;justify-content:center;align-items:flex-start}
+.book{position:relative;display:block;width:50%;max-width:230px;text-decoration:none;transition:transform .15s ease}
+.book:hover{transform:translateY(-4px)}
+.book img{width:100%;height:auto;display:block;border-radius:6px;box-shadow:0 22px 50px rgba(0,0,0,.45)}
+.book:nth-child(2){margin-top:34px}
+.tag{position:absolute;left:10px;top:-12px;font-weight:900;font-size:12px;letter-spacing:.4px;padding:5px 10px;border-radius:999px;box-shadow:0 4px 10px rgba(0,0,0,.25)}
 .c-brand{color:#7fd8c6;font-weight:900;font-size:11px;letter-spacing:.6px;margin-bottom:28px}
 .c-title{font-weight:900;font-size:25px;line-height:1.18;margin-bottom:22px}
 .c-sub{font-size:12px;line-height:1.5;color:#d6e2ec;margin-bottom:16px}
@@ -71,6 +77,7 @@ h1{font-size:44px;line-height:1.12;margin:0 0 18px;font-weight:900}
 h1{font-size:34px}
 .cover{max-width:220px;order:-1}
 .cover-img{max-width:220px;order:-1}
+.books{order:-1}.book{max-width:160px}.book:nth-child(2){margin-top:22px}
 }
 section{padding:72px 0}
 section.alt{background:var(--soft)}
@@ -138,15 +145,17 @@ a.btn.gumroad-button .gumroad-button-logo,a.btn.gumroad-button span.logo-full{di
 <div class="wrap">
 <div>
 <p class="eyebrow">US Medical Billing, RCM &amp; Credentialing Training</p>
-<h1>Learn provider credentialing and payer enrollment, step by step.</h1>
-<p class="lead">The Complete Guide to Provider Credentialing &amp; Enrollment takes you from first provider intake to Medicare, Medicaid, CAQH and commercial payer enrollment, and keeps working as a desk reference on the job.</p>
+<h1>Plain-language guides for US medical billing and credentialing.</h1>
+<p class="lead">Study for the CPB&reg; billing exam from zero, or learn provider credentialing and payer enrollment step by step. Clear explanations, practice questions and tools you can use on the job.</p>
 <div class="btns">
-<a class="btn btn-primary" href="#buy">Get the guide</a>
-<a class="btn btn-ghost gumroad-button" href="https://optimalpulse.gumroad.com/l/qikms">Free sample</a>
+<a class="btn btn-primary" href="#cpb">CPB study guide</a>
+<a class="btn btn-ghost" href="#buy">Credentialing guide</a>
 </div>
 <p class="trust">Written by an <strong>AAPC-certified medical coder with nearly 5 years of hands-on US medical billing experience</strong>, working with US providers. Reviewed against official sources, November 2026.</p>
 </div>
-<img class="cover-img" src="/cred-cover.jpg" width="612" height="792" alt="Cover of The Complete Guide to Provider Credentialing &amp; Enrollment">
+<div class="books">
+<a class="book" href="#cpb"><img src="/cpb-cover-a.jpg" width="612" height="792" alt="Cover of From Zero to CPB study guide"><span class="tag" style="background:#ffb627;color:#0f2b46">New &middot; Billing</span></a>
+<a class="book" href="#buy"><img src="/cred-cover.jpg" width="612" height="792" alt="Cover of The Complete Guide to Provider Credentialing &amp; Enrollment"><span class="tag" style="background:#3ccf8e;color:#0f2b46">Credentialing</span></a>
 </div>
 </div>
 </div>

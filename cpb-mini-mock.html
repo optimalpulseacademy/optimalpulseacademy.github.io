@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/logo-badge.png">
+<title>CPB Mini-Mock | OptimalPulse Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+*{box-sizing:border-box}body{margin:0}img{max-width:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+/* Layout: exam-console. Navy briefing band, then a two-pane test (question | palette + tools) that stacks on phones, then a score report. */
+:root{
+  --bg:#EEF3F6; --surface:#FFFFFF; --sunk:#F6F9FB; --ink:#10283B; --muted:#5A6C7C; --line:#D5DFE7;
+  --navy:#0F2B46; --navy-2:#173B5C; --on-navy:#E8F1F6; --on-navy-muted:#A9C1D2;
+  --teal:#0E8A7E; --teal-ink:#FFFFFF; --teal-soft:#DDF2EF; --gold:#E7A51C; --gold-soft:#FBF0D6;
+  --good:#1D7A4C; --good-soft:#DFF1E7; --bad:#B1372B; --bad-soft:#F7E3E0;
+  --display:"Space Grotesk",system-ui,sans-serif; --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --shadow:0 1px 2px rgba(16,40,59,.06),0 8px 24px rgba(16,40,59,.07);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0A1620; --surface:#11212D; --sunk:#0D1B25; --ink:#E5EEF4; --muted:#97ABBA; --line:#22394A;
+  --navy:#0C2236; --navy-2:#153550; --on-navy:#E5EEF4; --on-navy-muted:#93AEC1;
+  --teal:#35BFAF; --teal-ink:#06211E; --teal-soft:#123532; --gold:#F0BC4F; --gold-soft:#3A2E12;
+  --good:#5ACB8E; --good-soft:#14321F; --bad:#F28A7D; --bad-soft:#3A1D1A; --shadow:none; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0A1620; --surface:#11212D; --sunk:#0D1B25; --ink:#E5EEF4; --muted:#97ABBA; --line:#22394A;
+  --navy:#0C2236; --navy-2:#153550; --on-navy:#E5EEF4; --on-navy-muted:#93AEC1;
+  --teal:#35BFAF; --teal-ink:#06211E; --teal-soft:#123532; --gold:#F0BC4F; --gold-soft:#3A2E12;
+  --good:#5ACB8E; --good-soft:#14321F; --bad:#F28A7D; --bad-soft:#3A1D1A; --shadow:none; color-scheme:dark}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 var(--body)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:20;background:var(--navy)}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15;letter-spacing:-.01em}
+p{margin:0}
+button{font:600 .92rem var(--body);border-radius:10px;padding:11px 18px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);transition:background .15s,border-color .15s,transform .1s}
+button:hover{border-color:var(--teal)}
+button:active{transform:translateY(1px)}
+button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+button:disabled{opacity:.4;cursor:default;transform:none}
+.primary{background:var(--teal);border-color:var(--teal);color:var(--teal-ink)}
+.primary:hover{filter:brightness(1.06)}
+.gutter{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.inner{max-width:1080px;margin:0 auto}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.eyebrow{font:600 .72rem var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.muted{color:var(--muted)} .small{font-size:.85rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);min-width:0}
+.legal{font-size:.78rem;color:var(--muted)}
+kbd{font:600 .72rem var(--mono);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 6px;background:var(--sunk);color:var(--ink)}
+
+/* Brand strip */
+.brand{background:var(--navy);color:var(--on-navy)}
+.brand .inner{display:flex;align-items:center;gap:12px;padding-block:12px}
+.logo{display:flex;align-items:center;gap:9px;font:700 .95rem var(--display);color:var(--on-navy);text-decoration:none}
+.mark{width:26px;height:26px;border-radius:7px;background:var(--teal);display:grid;place-items:center}
+.mark svg{width:16px;height:16px}
+
+/* Intro */
+.hero{background:linear-gradient(180deg,var(--navy) 0%,var(--navy-2) 100%);color:var(--on-navy)}
+.hero .inner{padding-block:26px 40px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:32px;align-items:center}
+@media (max-width:820px){.hero .inner{grid-template-columns:1fr}}
+.hero h1{font-size:clamp(2.1rem,6vw,3.4rem)}
+.hero h1 span{color:var(--gold)}
+.hero .lead{font-size:1.06rem;color:var(--on-navy-muted);max-width:52ch;margin-top:14px}
+.hero .eyebrow{color:var(--gold)}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px;align-items:center}
+.hero .cta .primary{padding:14px 24px;font-size:1rem}
+.ghost-navy{background:transparent;color:var(--on-navy);border-color:rgba(255,255,255,.25)}
+.ticket{background:var(--surface);color:var(--ink);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:14px;box-shadow:0 20px 50px rgba(0,0,0,.25);border:1px solid var(--line)}
+.ticket .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;border-bottom:1px dashed var(--line);padding-bottom:12px}
+.ticket .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ticket .k{font:600 .7rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ticket .v{font:700 1.5rem var(--display)}
+.mix{display:flex;height:10px;border-radius:5px;overflow:hidden;gap:2px}
+.mix i{display:block}
+.mixlegend{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.75rem;color:var(--muted)}
+.mixlegend b{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px}
+.brief .inner{padding-block:28px 48px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:820px){.brief .inner{grid-template-columns:1fr}}
+.brief .card{padding:20px;display:flex;flex-direction:column;gap:8px}
+.brief h3{font-size:1.02rem}
+.brief .num{font:600 .75rem var(--mono);color:var(--teal)}
+.brief .legal{grid-column:1/-1}
+
+/* Test */
+.examhead{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--navy);color:var(--on-navy)}
+.examhead .inner{display:flex;align-items:center;gap:14px;padding-block:10px;flex-wrap:wrap}
+.examhead .title{font:600 .9rem var(--display)}
+.clock{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border-radius:999px;padding:5px 12px 5px 6px}
+.clock svg{width:26px;height:26px;transform:rotate(-90deg)}
+.clock circle{fill:none;stroke-width:4}
+.clock .tr{stroke:rgba(255,255,255,.18)} .clock .fg{stroke:var(--gold);stroke-linecap:round;transition:stroke-dashoffset 1s linear}
+.clock.low .fg{stroke:#FF8A7A} .clock.low .mono{color:#FFB3A8}
+.clock .mono{font-size:1rem;font-weight:600}
+.hbar{flex:1;min-width:120px;height:6px;border-radius:3px;background:rgba(255,255,255,.15);overflow:hidden}
+.hbar i{display:block;height:100%;background:var(--teal);width:0;transition:width .25s}
+.examhead .cnt{font-size:.82rem;color:var(--on-navy-muted)}
+.exam .inner{padding-block:22px 40px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}
+@media (max-width:860px){.exam .inner{grid-template-columns:1fr}}
+.qpane{padding:26px;display:flex;flex-direction:column;gap:18px}
+.qmeta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.chip{font:600 .72rem var(--mono);letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:4px 10px;background:var(--sunk);color:var(--muted);border:1px solid var(--line)}
+.chip.area{background:var(--teal-soft);color:var(--teal);border-color:transparent}
+.qnum{font:700 1.6rem var(--display);color:var(--muted)}
+.qnum b{color:var(--ink)}
+.stem{font-size:1.14rem;line-height:1.55;font-weight:500}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;align-items:center;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;background:var(--surface);transition:border-color .15s,background .15s}
+.opt:hover{border-color:var(--teal)}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt .let{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font:600 .9rem var(--mono);background:var(--sunk);border:1px solid var(--line);color:var(--muted)}
+.opt.sel{border-color:var(--teal);background:var(--teal-soft)}
+.opt.sel .let{background:var(--teal);color:var(--teal-ink);border-color:var(--teal)}
+.opt:focus-within{outline:3px solid var(--teal);outline-offset:2px}
+.qfoot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;border-top:1px solid var(--line);padding-top:16px}
+.qfoot .sp{flex:1}
+.flagbtn[aria-pressed="true"]{background:var(--gold-soft);border-color:var(--gold);color:var(--ink)}
+.side{display:flex;flex-direction:column;gap:16px;position:sticky;top:76px}
+@media (max-width:860px){.side{position:static}}
+.side .card{padding:18px;display:flex;flex-direction:column;gap:12px}
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.pal button{padding:8px 0;font:600 .82rem var(--mono);border-radius:8px;position:relative}
+.pal button.ans{background:var(--teal);border-color:var(--teal);color:var(--teal-ink)}
+.pal button.cur{outline:2px solid var(--ink);outline-offset:2px}
+.pal button.flg::after{content:"";position:absolute;top:-3px;right:-3px;width:9px;height:9px;border-radius:50%;background:var(--gold);border:2px solid var(--surface)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.75rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block;border:1px solid var(--line)}
+.calc .disp{font:600 1.25rem var(--mono);text-align:right;background:var(--sunk);border:1px solid var(--line);border-radius:9px;padding:10px 12px;min-height:48px;overflow-x:auto;white-space:nowrap}
+.calc .expr{font:500 .78rem var(--mono);color:var(--muted);text-align:right;min-height:1.2em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.keys{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.keys button{padding:9px 0;font:600 .95rem var(--mono);border-radius:8px}
+.keys .op{background:var(--sunk)} .keys .eq{background:var(--teal);border-color:var(--teal);color:var(--teal-ink)}
+.tips{font-size:.78rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 12px}
+.modal{position:fixed;inset:0;z-index:30;background:rgba(6,18,28,.55);display:grid;place-items:center;padding:20px}
+.modal .card{max-width:440px;width:100%;padding:24px;display:flex;flex-direction:column;gap:14px}
+.sumgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.sumgrid div{background:var(--sunk);border-radius:10px;padding:10px 6px}
+.sumgrid b{display:block;font:700 1.4rem var(--display)}
+.sumgrid span{font-size:.75rem;color:var(--muted)}
+
+/* Results */
+.rhero{background:linear-gradient(180deg,var(--navy) 0%,var(--navy-2) 100%);color:var(--on-navy)}
+.rhero .inner{padding-block:28px 36px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:32px;align-items:center}
+@media (max-width:700px){.rhero .inner{grid-template-columns:1fr;justify-items:center;text-align:center}}
+.ring{position:relative;width:200px;height:200px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:14}
+.ring .tr{stroke:rgba(255,255,255,.12)} .ring .fg{stroke-linecap:round;transition:stroke-dashoffset 1.4s cubic-bezier(.2,.8,.2,1)}
+.ring .tick{stroke:var(--on-navy);stroke-width:3}
+.ring .c{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.ring .pct{font:700 3.2rem var(--display);line-height:1;font-variant-numeric:tabular-nums}
+.ring .sub{font:600 .72rem var(--mono);letter-spacing:.08em;color:var(--on-navy-muted);text-transform:uppercase}
+.verdict{font:700 clamp(1.5rem,4vw,2.2rem) var(--display)}
+.badge{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:6px 14px;font:600 .82rem var(--body)}
+.badge.pass{background:var(--good-soft);color:var(--good)} .badge.fail{background:var(--bad-soft);color:var(--bad)}
+.rhero .note{color:var(--on-navy-muted);max-width:56ch;margin-top:10px}
+.rhero .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+@media (max-width:700px){.rhero .acts{justify-content:center}}
+.stats .inner{padding-block:20px 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:700px){.stats .inner{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat{padding:16px}
+.stat b{display:block;font:700 1.5rem var(--display);font-variant-numeric:tabular-nums}
+.stat span{font-size:.78rem;color:var(--muted)}
+.rbody .inner{padding-block:20px 48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:860px){.rbody .inner{grid-template-columns:1fr}}
+.rbody .card{padding:22px;display:flex;flex-direction:column;gap:14px}
+.arow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:center}
+.arow .n{font:600 .85rem var(--mono)}
+.track{grid-column:1/-1;position:relative;height:10px;border-radius:5px;background:var(--sunk);border:1px solid var(--line);overflow:visible}
+.track i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.track .pm{position:absolute;left:70%;top:-4px;bottom:-4px;width:2px;background:var(--ink);opacity:.55}
+.plan{display:flex;flex-direction:column;gap:10px;counter-reset:s}
+.plan li{list-style:none;display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start}
+.plan li::before{counter-increment:s;content:counter(s);width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font:600 .82rem var(--mono);background:var(--teal-soft);color:var(--teal)}
+.plan ol{margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.next{background:var(--navy);color:var(--on-navy);border-color:var(--navy)}
+.next .eyebrow{color:var(--gold)}
+.next .muted{color:var(--on-navy-muted)}
+.prod{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:560px){.prod{grid-template-columns:1fr}}
+.prod div{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.prod b{font:700 1.02rem var(--display)}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filters button{padding:6px 12px;font-size:.82rem;border-radius:999px}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.rv{border:1px solid var(--line);border-left:4px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.rv.ok{border-left-color:var(--good)} .rv.no{border-left-color:var(--bad)}
+.rv .top{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.rv .res{font:600 .8rem var(--body)} .rv.ok .res{color:var(--good)} .rv.no .res{color:var(--bad)}
+.rv .ans{font-size:.88rem;display:grid;gap:2px}
+.rv .why{font-size:.88rem;color:var(--muted);background:var(--sunk);border-radius:8px;padding:10px 12px}
+.rv a{color:var(--teal)}
+.full{grid-column:1/-1}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:.88rem;z-index:40}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="brand gutter"><div class="inner">
+  <a class="logo" href="/"><span class="mark" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M1 9h3l2-5 3 9 2-6 1 2h3" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>OptimalPulse Academy</a>
+</div></div>
+
+<!-- INTRO -->
+<main id="v-intro">
+  <section class="hero gutter"><div class="inner">
+    <div>
+      <span class="eyebrow">Free CPB practice exam</span>
+      <h1 style="margin-top:10px">CPB <span>Mini-Mock</span></h1>
+      <p class="lead">Twenty original questions in the same mix as the real Certified Professional Biller exam. Work against the clock, flag questions to come back to, use the on-screen calculator, then see exactly where you stand in every exam area.</p>
+      <div class="cta">
+        <button class="primary" id="b-start">Start the exam</button>
+        <button class="ghost-navy" id="b-resume" hidden>Resume where I left off</button>
+      </div>
+    </div>
+    <div class="ticket" aria-label="Exam details">
+      <div class="top"><span class="eyebrow" style="color:var(--teal)">Exam ticket</span><span class="mono small muted">OPA-CPB-MINI · v1.0</span></div>
+      <div class="grid">
+        <div><div class="k">Questions</div><div class="v">20</div></div>
+        <div><div class="k">Time</div><div class="v">35 min</div></div>
+        <div><div class="k">Pass mark</div><div class="v">70%</div></div>
+        <div><div class="k">Exam areas</div><div class="v">7 of 7</div></div>
+      </div>
+      <div class="k">Question mix</div>
+      <div class="mix" id="mix"></div>
+      <div class="mixlegend" id="mixlegend"></div>
+    </div>
+  </div></section>
+  <section class="brief gutter"><div class="inner">
+    <div class="card"><span class="num">BEFORE YOU START</span><h3>Set it up like exam day</h3><p class="small muted">The real CPB is open book. Keep your CPT, ICD-10-CM and HCPCS books nearby if you have them. Find a quiet spot: the clock starts as soon as you begin.</p></div>
+    <div class="card"><span class="num">DURING THE EXAM</span><h3>Exam tools you'll have</h3><p class="small muted">Flag any question to revisit, jump around with the question map, and use the built-in calculator. Keyboard: <kbd>A</kbd>–<kbd>D</kbd> answer, <kbd>←</kbd> <kbd>→</kbd> move, <kbd>F</kbd> flag.</p></div>
+    <div class="card"><span class="num">AFTER YOU SUBMIT</span><h3>A real score report</h3><p class="small muted">Your score against the 70% pass mark, a result for each exam area, a study plan for your weakest areas, and the reason and source behind every answer.</p></div>
+    <p class="legal">Original practice questions written by OptimalPulse Academy and checked against CMS, HHS, OIG and X12 sources in November 2026. Not affiliated with or endorsed by AAPC. CPB is a credential of AAPC. A practice score does not predict or guarantee an exam result.</p>
+  </div></section>
+</main>
+
+<!-- TEST -->
+<main id="v-test" hidden>
+  <div class="examhead gutter"><div class="inner">
+    <span class="title">CPB Mini-Mock</span>
+    <div class="clock" id="clock" role="timer" aria-label="Time remaining"><svg viewBox="0 0 30 30" aria-hidden="true"><circle class="tr" cx="15" cy="15" r="12"/><circle class="fg" id="clockfg" cx="15" cy="15" r="12" stroke-dasharray="75.4" stroke-dashoffset="0"/></svg><span class="mono" id="timer">35:00</span></div>
+    <div class="hbar" aria-hidden="true"><i id="prog"></i></div>
+    <span class="cnt" id="count">0 / 20 answered</span>
+  </div></div>
+  <section class="exam gutter"><div class="inner">
+    <div class="card qpane" id="qpane" aria-live="polite"></div>
+    <aside class="side">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center"><h3 style="font-size:1rem">Question map</h3><span class="small muted" id="flagcount"></span></div>
+        <div class="pal" id="pal"></div>
+        <div class="legend"><span><i style="background:var(--teal);border-color:var(--teal)"></i>Answered</span><span><i></i>Not answered</span><span><i style="background:var(--gold);border-color:var(--gold);border-radius:50%"></i>Flagged</span></div>
+        <button class="primary" id="b-review">Review and submit</button>
+      </div>
+      <div class="card calc">
+        <div style="display:flex;justify-content:space-between;align-items:center"><h3 style="font-size:1rem">Calculator</h3><span class="small muted">like the exam's</span></div>
+        <div class="expr" id="cx"></div>
+        <div class="disp" id="cd" aria-live="polite">0</div>
+        <div class="keys" id="keys"></div>
+      </div>
+      <div class="tips"><span><kbd>A</kbd>–<kbd>D</kbd> answer</span><span><kbd>←</kbd><kbd>→</kbd> move</span><span><kbd>F</kbd> flag</span></div>
+    </aside>
+  </div></section>
+</main>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="m-h">
+  <div class="card">
+    <h2 id="m-h" style="font-size:1.25rem">Ready to submit?</h2>
+    <div class="sumgrid"><div><b id="m-a">0</b><span>answered</span></div><div><b id="m-u">0</b><span>unanswered</span></div><div><b id="m-f">0</b><span>flagged</span></div></div>
+    <p class="small muted" id="m-note"></p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px"><button class="primary" id="b-submit">Submit exam</button><button id="b-back">Back to the exam</button></div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<main id="v-result" hidden>
+  <section class="rhero gutter"><div class="inner">
+    <div class="ring" aria-hidden="true">
+      <svg viewBox="0 0 200 200"><circle class="tr" cx="100" cy="100" r="86"/><circle class="fg" id="ringfg" cx="100" cy="100" r="86" stroke-dasharray="540.35" stroke-dashoffset="540.35"/><line class="tick" x1="186" y1="100" x2="200" y2="100" id="ptick"/></svg>
+      <div class="c"><div><div class="pct" id="r-pct">0%</div><div class="sub">your score</div></div></div>
+    </div>
+    <div>
+      <span class="badge" id="r-badge"></span>
+      <h1 class="verdict" id="r-verdict" style="margin-top:12px"></h1>
+      <p class="note" id="r-note"></p>
+      <div class="acts"><button class="primary" id="b-share">Copy my result</button><button class="ghost-navy" id="b-again">Retake with new answer order</button></div>
+    </div>
+  </div></section>
+  <section class="stats gutter"><div class="inner">
+    <div class="card stat"><b id="s-c">0/20</b><span>correct answers</span></div>
+    <div class="card stat"><b id="s-t">0:00</b><span>time used of 35:00</span></div>
+    <div class="card stat"><b id="s-p">0s</b><span>average per question</span></div>
+    <div class="card stat"><b id="s-e">0:00</b><span>projected time for 135 questions (the exam allows 4 hours)</span></div>
+  </div></section>
+  <section class="rbody gutter"><div class="inner">
+    <div class="card">
+      <h2 style="font-size:1.2rem">Score by exam area</h2>
+      <p class="small muted">The line marks 70%. On the real exam, case analysis is the largest area (34 of 135 questions).</p>
+      <div id="r-areas" style="display:flex;flex-direction:column;gap:14px"></div>
+    </div>
+    <div class="card">
+      <h2 style="font-size:1.2rem">Your study plan</h2>
+      <p class="small muted">Built from your answers. Twenty questions is a small sample, so treat this as a direction.</p>
+      <ol class="plan" id="r-plan"></ol>
+    </div>
+    <div class="card next full">
+      <span class="eyebrow">Coming next from OptimalPulse Academy</span>
+      <h2 style="font-size:1.35rem">Take the full-length version</h2>
+      <div class="prod">
+        <div><b>CPB Question Bank</b><span class="small muted">3 full mock exams of 135 questions and 4 hours each, scored by area, with a reason and source for every answer. Opens in December.</span></div>
+        <div><b>CPB Exam Prep Course</b><span class="small muted">Seven modules with job labs on real billing documents. The 3 mock exams are included. Opens in December.</span></div>
+      </div>
+      <p class="small muted">You'll hear about both at the email you used for this free download.</p>
+    </div>
+    <div class="card full">
+      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between"><h2 style="font-size:1.2rem">Answer review</h2>
+        <div class="filters" id="filters"><button data-f="all" aria-pressed="true">All</button><button data-f="no" aria-pressed="false">Incorrect</button><button data-f="flag" aria-pressed="false">Flagged</button></div></div>
+      <div id="r-review" style="display:flex;flex-direction:column;gap:12px"></div>
+    </div>
+    <p class="legal full">Not affiliated with or endorsed by AAPC. CPB is a credential of AAPC. A practice score does not predict or guarantee an exam result.</p>
+  </div></section>
+</main>
+
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const AREAS=["Types of insurance","Billing regulations","HIPAA and compliance","Reimbursement and collections","Claims and billing","Coding","Case analysis"];
+const COL=["#2F7FB8","#7A5AB5","#C0587E","#D08A1E","#0E8A7E","#5C8A2E","#1F3F66"];
+const EXAMN=[29,17,7,19,19,10,34];
+const SRC={
+ med:["CMS: Medicare coverage basics","https://www.medicare.gov/basics/get-started-with-medicare/medicare-basics/parts-of-medicare"],
+ cob:["CMS: Coordination of benefits","https://www.cms.gov/medicare/coordination-benefits-recovery/overview"],
+ tri:["TRICARE: Survivors","https://www.tricare.mil/LifeEvents/Death"],
+ abn:["CMS: Advance Beneficiary Notice","https://www.cms.gov/medicare/medicare-fee-for-service-payment/bni/abn"],
+ gs:["CMS: Global surgery booklet","https://www.cms.gov/files/document/mln907166-global-surgery-booklet.pdf"],
+ hip:["HHS: HIPAA for professionals","https://www.hhs.gov/hipaa/for-professionals/index.html"],
+ carc:["X12: Claim adjustment reason codes","https://x12.org/codes/claim-adjustment-reason-codes"],
+ tila:["CFPB: Regulation Z (Truth in Lending)","https://www.consumerfinance.gov/rules-policy/regulations/1026/"],
+ nucc:["NUCC: CMS-1500 instructions","https://www.nucc.org/index.php/1500-claim-form-mainmenu-35/1500-instructions-mainmenu-42"],
+ icd:["CMS: ICD-10-CM guidelines","https://www.cms.gov/medicare/coding-billing/icd-10-codes"],
+ tf:["CMS: Medicare timely filing","https://www.cms.gov/medicare/regulations-guidance/manuals/internet-only-manuals-ioms"],
+ wc:["DOL: Workers' compensation","https://www.dol.gov/general/topic/workcomp"],
+ cap:["CMS: Payment models","https://www.cms.gov/priorities/innovation/models"]
+};
+const Q=[
+{a:0,s:"Which part of Medicare mainly covers physician office visits and outpatient services?",o:["Part A","Part B","Part C","Part D"],k:1,w:"Part B covers physician services and outpatient care. Part A is hospital inpatient, Part C is Medicare Advantage and Part D is prescription drugs.",r:"med",fix:false},
+{a:0,s:"A child is covered under both parents' employer plans. Mom's birthday is March 9 and Dad's is July 2. Under the birthday rule, which plan is primary?",o:["Dad's, because he is older","Mom's, because her birthday comes earlier in the calendar year","The plan with the lower deductible","Whichever plan was billed first"],k:1,w:"The birthday rule looks only at month and day. The parent whose birthday falls first in the year has the primary plan; the year of birth does not matter.",r:"cob"},
+{a:0,s:"A 67-year-old patient is still working and covered by her employer's group plan. The employer has 120 employees. Which pays first?",o:["Medicare","The employer group plan","Medicaid","They split the claim equally"],k:1,w:"For people 65 and older covered through current employment, the group plan is primary when the employer has 20 or more employees.",r:"cob"},
+{a:0,s:"The widow of a military retiree needs coverage. Which program covers her?",o:["CHAMPVA","TRICARE","Medicaid only","The VA health system"],k:1,w:"Surviving spouses of military retirees are covered by TRICARE. CHAMPVA is for families of veterans who are permanently and totally disabled from a service-connected condition, or who died from one.",r:"tri"},
+{a:1,s:"When must a Medicare patient receive an Advance Beneficiary Notice (ABN)?",o:["After Medicare denies the claim","Before the service, when Medicare may not pay for it","Only before surgery","At the end of every visit"],k:1,w:"The ABN must be given before the service, so the patient can choose whether to receive it and accept the cost.",r:"abn"},
+{a:1,s:"A doctor performs a minor procedure and, at the same visit, treats a separate, significant problem. Which modifier goes on the E/M code?",o:["24","25","57","59"],k:1,w:"Modifier 25 reports a significant, separately identifiable E/M on the same day as a procedure.",r:"gs"},
+{a:1,s:"How long is the Medicare global period for a major surgery?",o:["10 days after surgery","30 days after surgery","The day before, the day of surgery and 90 days after","1 year"],k:2,w:"Major surgery has a 90-day global period, plus the day before and the day of surgery.",r:"gs"},
+{a:2,s:"A practice sends a patient's records to a specialist who will treat her. What does HIPAA require?",o:["Written authorization from the patient","Nothing extra: sharing for treatment is allowed","A court order","Approval from the health plan"],k:1,w:"Treatment, payment and health care operations do not need the patient's authorization under the HIPAA Privacy Rule.",r:"hip"},
+{a:3,s:"An in-network claim shows CO-45. What does that mean for the patient?",o:["The patient owes the amount","The amount is written off and the patient does not owe it","The claim must be appealed","The secondary payer must be billed for it"],k:1,w:"CO means contractual obligation. Reason 45 is the difference between the charge and the contracted amount, which the practice writes off.",r:"carc"},
+{a:3,s:"Under capitation, a provider is paid:",o:["A fee for each service","A fixed amount per member per month","A percentage of total charges","One payment per hospital stay"],k:1,w:"Capitation pays a set amount for each enrolled member, whether or not the member is seen that month.",r:"cap"},
+{a:3,s:"A practice offers a patient an interest-free payment plan of six monthly payments. Which law applies?",o:["Fair Debt Collection Practices Act","Truth in Lending Act","Fair Credit Reporting Act","HIPAA"],k:1,w:"A plan with more than four installments makes the practice a creditor under the Truth in Lending Act, even with no interest.",r:"tila"},
+{a:4,s:"On the CMS-1500, where do you link each service line to its diagnosis?",o:["Box 21","Box 24E, the diagnosis pointer","Box 24J","Box 33"],k:1,w:"Box 21 lists the diagnosis codes (A to L). Box 24E points each service line to the letters that apply.",r:"nucc"},
+{a:4,s:"A claim was rejected by the clearinghouse for an invalid member ID. What is the right next step?",o:["File an appeal","Fix the member ID and send the claim again","Write it off","Bill the patient"],k:1,w:"A rejected claim never reached the payer for processing, so there is nothing to appeal. Correct the error and resubmit.",r:"nucc"},
+{a:4,s:"A paid claim had the wrong units. You send a replacement claim. Which resubmission code goes in box 22?",o:["1","7","8","9"],k:1,w:"Code 7 replaces a prior claim. Code 8 voids it.",r:"nucc"},
+{a:5,s:"An outpatient visit note says \"chest pain, rule out myocardial infarction.\" What do you code?",o:["Myocardial infarction","Chest pain","Both codes","No code until results return"],k:1,w:"In the outpatient setting, do not code \"rule out\" or \"probable\" conditions. Code the documented sign or symptom: chest pain.",r:"icd"},
+{a:6,s:"In-network PPO patient. Deductible $1,000, with $800 already met. Coinsurance 20%. Allowed amount $500. How much does the patient owe?",o:["$100","$200","$260","$300"],k:2,w:"The first $200 finishes the deductible. The remaining $300 is split 80/20, so the patient pays $60 more. $200 + $60 = $260, and the plan pays $240.",r:"carc"},
+{a:6,s:"A Medicare patient has a Medicare supplement plan that pays the Part B coinsurance. Her deductible is met. Medicare allows $150. What does she owe after both payers process?",o:["$0","$30","$120","$150"],k:0,w:"Medicare pays 80% ($120). The supplement pays the 20% coinsurance ($30). Nothing is left for the patient.",r:"med"},
+{a:6,s:"A claim is denied with CO-22. The patient tells you her husband's employer plan also covers her. What do you do?",o:["Appeal the denial","Bill the patient","Confirm the other coverage and the payer order, then bill the correct primary plan","Write it off"],k:2,w:"CARC 22 means another payer may be primary. Update the coverage and coordination of benefits, then bill the right plan first.",r:"carc"},
+{a:6,s:"A Medicare claim was sent 14 months after the date of service and denied for timely filing. What happens to the balance?",o:["Bill the patient","Appeal because the patient was late","Write it off; the patient is not responsible","Send it to collections"],k:2,w:"Medicare's limit is 12 months from the date of service. A late claim is the provider's loss and cannot be billed to the patient.",r:"tf"},
+{a:6,s:"A patient hurt her back lifting boxes at work and hands you her health insurance card. Who should be billed?",o:["Her health plan","The workers' compensation carrier, using the claim number","Medicaid","The patient directly"],k:1,w:"A work injury goes to the employer's workers' compensation carrier. Get the claim number and adjuster details before billing.",r:"wc"}
+];
+const N=Q.length, LIMIT=35*60, KEY="opa-cpb-minimock-v1";
+const $=id=>document.getElementById(id);
+let S=null,tick=null,lastT=0,filter="all";
+
+function esc(t){return String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function fmt(s){s=Math.max(0,Math.round(s));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return (h?h+":"+String(m).padStart(2,"0"):m)+":"+String(x).padStart(2,"0")}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||"null")}catch(e){return null}}
+function clear(){try{localStorage.removeItem(KEY)}catch(e){}}
+function view(v){["intro","test","result"].forEach(x=>$("v-"+x).hidden=x!==v);window.scrollTo(0,0)}
+function toast(m){const t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>t.hidden=true,2400)}
+function perm(n){const p=[...Array(n).keys()];for(let i=n-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[p[i],p[j]]=[p[j],p[i]]}return p}
+
+/* intro mix bar */
+(function(){const c=AREAS.map((_,i)=>Q.filter(q=>q.a===i).length);
+ $("mix").innerHTML=c.map((n,i)=>`<i style="flex:${n};background:${COL[i]}" title="${AREAS[i]}: ${n}"></i>`).join("");
+ $("mixlegend").innerHTML=c.map((n,i)=>`<span><b style="background:${COL[i]}"></b>${AREAS[i]} ${n}</span>`).join("");
+ const s=load(); if(s&&s.status==="test")$("b-resume").hidden=false;})();
+
+function start(){S={status:"test",order:Q.map(q=>perm(q.o.length)),ans:Array(N).fill(null),flag:Array(N).fill(false),spent:Array(N).fill(0),cur:0,left:LIMIT};save();run()}
+function run(){view("test");renderQ();clearInterval(tick);lastT=Date.now();tick=setInterval(()=>{const now=Date.now(),d=(now-lastT)/1000;lastT=now;S.left-=d;S.spent[S.cur]+=d;drawClock();if(S.left<=0){S.left=0;finish()}else if(Math.floor(S.left)%5===0)save()},1000);drawClock()}
+function drawClock(){$("timer").textContent=fmt(S.left);$("clockfg").style.strokeDashoffset=75.4*(1-S.left/LIMIT);$("clock").classList.toggle("low",S.left<=300)}
+function shown(i){return S.order[i].map(j=>Q[i].o[j])}
+function renderQ(){const i=S.cur,q=Q[i],opts=shown(i),L="ABCD";
+ $("qpane").innerHTML=`<div class="qmeta"><span class="qnum"><b>${i+1}</b> / ${N}</span><span class="chip area">${AREAS[q.a]}</span></div>
+ <p class="stem">${esc(q.s)}</p>
+ <div class="opts" role="radiogroup" aria-label="Answer options">${opts.map((o,j)=>`<label class="opt${S.ans[i]===j?" sel":""}"><input type="radio" name="q" id="q${i}o${j}" value="${j}"${S.ans[i]===j?" checked":""}><span class="let">${L[j]}</span><span>${esc(o)}</span></label>`).join("")}</div>
+ <div class="qfoot"><button id="b-prev"${i===0?" disabled":""}>← Previous</button><button class="flagbtn" id="b-flag" aria-pressed="${S.flag[i]}">${S.flag[i]?"Flagged":"Flag for review"}</button><span class="sp"></span><button class="primary" id="b-next">${i===N-1?"Review and submit":"Next →"}</button></div>`;
+ $("qpane").querySelectorAll("input").forEach(r=>r.addEventListener("change",()=>pick(+r.value)));
+ $("b-prev").onclick=()=>go(i-1);$("b-next").onclick=()=>i===N-1?openModal():go(i+1);$("b-flag").onclick=toggleFlag;
+ const n=S.ans.filter(x=>x!==null).length,f=S.flag.filter(Boolean).length;
+ $("count").textContent=`${n} / ${N} answered`;$("prog").style.width=(n/N*100)+"%";$("flagcount").textContent=f?`${f} flagged`:"";
+ $("pal").innerHTML=Q.map((_,k)=>`<button class="${S.ans[k]!==null?"ans":""} ${k===i?"cur":""} ${S.flag[k]?"flg":""}" data-k="${k}" aria-label="Question ${k+1}${S.ans[k]!==null?", answered":""}${S.flag[k]?", flagged":""}">${k+1}</button>`).join("");
+ $("pal").querySelectorAll("button").forEach(b=>b.onclick=()=>go(+b.dataset.k))}
+function pick(j){S.ans[S.cur]=j;save();renderQ()}
+function go(k){if(k<0||k>=N)return;S.cur=k;save();renderQ()}
+function toggleFlag(){S.flag[S.cur]=!S.flag[S.cur];save();renderQ()}
+function openModal(){const a=S.ans.filter(x=>x!==null).length,f=S.flag.filter(Boolean).length;$("m-a").textContent=a;$("m-u").textContent=N-a;$("m-f").textContent=f;
+ $("m-note").textContent=N-a?`Unanswered questions count as wrong. There's no penalty for guessing, so answer everything before you submit.`:f?`Everything is answered. You still have ${f} flagged question${f>1?"s":""} you may want to recheck.`:`Everything is answered. Good luck!`;
+ $("modal").hidden=false;$("b-submit").focus()}
+$("b-back").onclick=()=>$("modal").hidden=true;$("b-submit").onclick=()=>{$("modal").hidden=true;finish()};$("b-review").onclick=openModal;
+
+/* calculator: safe parser, no eval */
+const KEYS=["C","(",")","÷","7","8","9","×","4","5","6","−","1","2","3","+","0",".","⌫","="];
+let cexpr="";
+$("keys").innerHTML=KEYS.map(k=>`<button class="${"÷×−+()C⌫".includes(k)?"op":""}${k==="="?" eq":""}" data-k="${k}" aria-label="${{"÷":"divide","×":"multiply","−":"minus","⌫":"backspace","C":"clear"}[k]||k}">${k}</button>`).join("");
+$("keys").querySelectorAll("button").forEach(b=>b.onclick=()=>ckey(b.dataset.k));
+function ckey(k){if(k==="C"){cexpr="";$("cx").textContent="";$("cd").textContent="0";return}
+ if(k==="⌫"){cexpr=cexpr.slice(0,-1);$("cd").textContent=cexpr||"0";return}
+ if(k==="="){const v=calc(cexpr);$("cx").textContent=cexpr+" =";if(v===null){$("cd").textContent="Error";cexpr=""}else{const r=Math.round(v*1e8)/1e8;$("cd").textContent=r.toLocaleString("en-US",{maximumFractionDigits:8});cexpr=String(r)}return}
+ cexpr+=k;$("cd").textContent=cexpr}
+function calc(e){const t=e.replace(/×/g,"*").replace(/÷/g,"/").replace(/−/g,"-").match(/\d*\.?\d+|[-+*/()]/g);if(!t)return null;let p=0;
+ function ex(){let v=tm();while(t[p]==="+"||t[p]==="-"){const o=t[p++],r=tm();v=o==="+"?v+r:v-r}return v}
+ function tm(){let v=fa();while(t[p]==="*"||t[p]==="/"){const o=t[p++],r=fa();v=o==="*"?v*r:v/r}return v}
+ function fa(){const x=t[p++];if(x==="-")return -fa();if(x==="("){const v=ex();if(t[p++]!==")")throw 0;return v}const n=parseFloat(x);if(isNaN(n))throw 0;return n}
+ try{const v=ex();return p===t.length&&isFinite(v)?v:null}catch(_){return null}}
+
+/* keyboard */
+document.addEventListener("keydown",e=>{if($("v-test").hidden||!$("modal").hidden||e.metaKey||e.ctrlKey||e.altKey)return;const k=e.key.toLowerCase();
+ if("abcd".includes(k)&&k.length===1){pick("abcd".indexOf(k));e.preventDefault()}
+ else if(e.key==="ArrowRight"){go(S.cur+1);e.preventDefault()}else if(e.key==="ArrowLeft"){go(S.cur-1);e.preventDefault()}
+ else if(k==="f"){toggleFlag();e.preventDefault()}});
+
+/* results */
+function finish(){clearInterval(tick);S.status="done";clear();
+ const right=Q.map((q,i)=>S.ans[i]!==null&&S.order[i][S.ans[i]]===q.k);
+ const c=right.filter(Boolean).length,pct=Math.round(c/N*100),pass=pct>=70,used=LIMIT-S.left;
+ const per=AREAS.map((_,a)=>{const ix=Q.map((q,i)=>q.a===a?i:-1).filter(i=>i>=0);return {a,g:ix.filter(i=>right[i]).length,t:ix.length}});
+ view("result");
+ $("r-pct").textContent=pct+"%";
+ const fg=$("ringfg");fg.style.stroke=pass?"var(--good)":"var(--gold)";
+ const ang=.7*2*Math.PI;$("ptick").setAttribute("x1",100+86*Math.cos(ang)-8*Math.cos(ang));$("ptick").setAttribute("y1",100+86*Math.sin(ang)-8*Math.sin(ang));$("ptick").setAttribute("x2",100+86*Math.cos(ang)+8*Math.cos(ang));$("ptick").setAttribute("y2",100+86*Math.sin(ang)+8*Math.sin(ang));
+ requestAnimationFrame(()=>requestAnimationFrame(()=>fg.style.strokeDashoffset=540.35*(1-c/N)));
+ $("r-badge").className="badge "+(pass?"pass":"fail");$("r-badge").textContent=pass?"At or above the 70% pass mark":"Below the 70% pass mark";
+ const weak=per.filter(p=>p.g/p.t<.7).sort((x,y)=>x.g/x.t-y.g/y.t);
+ $("r-verdict").textContent=pct>=85?"Strong result. You're in good shape.":pass?"You cleared the pass mark.":pct>=55?"Close. A focused review gets you there.":"A good starting point. Now you know where to focus.";
+ $("r-note").textContent=weak.length?`Your biggest opportunity is ${AREAS[weak[0].a]}${weak[1]?`, followed by ${AREAS[weak[1].a]}`:""}. Your study plan below shows what to do next.`:"You were at or above 70% in every area. Keep it up with full-length timed practice.";
+ $("s-c").textContent=`${c}/${N}`;$("s-t").textContent=fmt(used);$("s-p").textContent=Math.round(used/N)+"s";$("s-e").textContent=fmt(used/N*135);
+ $("r-areas").innerHTML=per.map(p=>{const r=p.g/p.t;return `<div class="arow"><span>${AREAS[p.a]} <span class="small muted">· ${EXAMN[p.a]} on the real exam</span></span><span class="n">${p.g}/${p.t}</span><div class="track"><i style="width:0;background:var(${r>=.7?"--good":"--bad"})" data-w="${r*100}"></i><span class="pm"></span></div></div>`}).join("");
+ setTimeout(()=>document.querySelectorAll("#r-areas .track i").forEach(i=>i.style.width=i.dataset.w+"%"),120);
+ const plan=[];
+ weak.slice(0,3).forEach(p=>plan.push(`<b>Review ${AREAS[p.a]}.</b> You got ${p.g} of ${p.t}. Reread the reasons below for every miss in this area, then practice 10 more questions on it.`));
+ if(used/N*135>4*3600)plan.push(`<b>Work on pace.</b> At your speed, 135 questions would take ${fmt(used/N*135)}. The exam gives you 4 hours, so aim for under 1 minute 45 seconds a question.`);
+ else plan.push(`<b>Keep your pace.</b> At ${Math.round(used/N)} seconds a question you'd finish the real exam in time. Practice under the full 4-hour clock to build stamina.`);
+ if(S.flag.some(Boolean))plan.push(`<b>Look at your flagged questions.</b> Use the Flagged filter below. They show where you were unsure, even when you guessed right.`);
+ plan.push(`<b>Take a full-length mock.</b> 135 questions in 4 hours is the best way to check you're ready.`);
+ $("r-plan").innerHTML=plan.map(x=>`<li><span>${x}</span></li>`).join("");
+ S.right=right;S.pct=pct;filter="all";document.querySelectorAll("#filters button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.f==="all"));renderReview()}
+function renderReview(){const L="ABCD";
+ $("r-review").innerHTML=Q.map((q,i)=>{const ok=S.right[i],o=shown(i),ya=S.ans[i],ci=S.order[i].indexOf(q.k);
+  if(filter==="no"&&ok)return"";if(filter==="flag"&&!S.flag[i])return"";const src=SRC[q.r];
+  return `<div class="rv ${ok?"ok":"no"}"><div class="top"><span class="res">${i+1}. ${ok?"Correct":ya===null?"Not answered":"Incorrect"}</span><span class="chip area">${AREAS[q.a]}</span>${S.flag[i]?'<span class="chip" style="color:var(--gold)">Flagged</span>':""}<span class="chip">${fmt(S.spent[i])}</span></div>
+  <p>${esc(q.s)}</p><div class="ans"><span><b>Your answer:</b> ${ya===null?"None":L[ya]+". "+esc(o[ya])}</span>${ok?"":`<span><b>Correct answer:</b> ${L[ci]}. ${esc(o[ci])}</span>`}</div>
+  <div class="why">${esc(q.w)} <br><span class="small">Source: <a href="${src[1]}" target="_blank" rel="noopener noreferrer">${esc(src[0])}</a></span></div></div>`}).join("")||`<p class="muted small">Nothing to show for this filter.</p>`}
+document.querySelectorAll("#filters button").forEach(b=>b.onclick=()=>{filter=b.dataset.f;document.querySelectorAll("#filters button").forEach(x=>x.setAttribute("aria-pressed",x===b));renderReview()});
+$("b-share").onclick=()=>{const t=`I scored ${S.pct}% on the free CPB Mini-Mock from OptimalPulse Academy. Try it yourself: optimalpulseacademy.com`;
+ const done=()=>toast("Copied. Paste it anywhere to share.");
+ if(navigator.clipboard)navigator.clipboard.writeText(t).then(done,()=>toast(t));else toast(t)};
+$("b-start").onclick=start;$("b-again").onclick=start;
+$("b-resume").onclick=()=>{S=load();if(S&&S.status==="test")run();else start()};
+</script>
+
+</body>
+</html>

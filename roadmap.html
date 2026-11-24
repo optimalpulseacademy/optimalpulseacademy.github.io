@@ -599,7 +599,7 @@ a.gumroad-button .gumroad-button-logo,a.gumroad-button span.logo-full{display:no
  var cw=document.querySelector('.cw');
  if(cw)cw.addEventListener('submit',function(e){e.preventDefault();var m=document.querySelector('.cwm'),n=cw.n.value.trim(),em=cw.e.value.trim();
   if(!n||!/^[^@ ]+@[^@ ]+[.][^@ ]+$/.test(em)){m.className='small cwm err';m.textContent='Please enter your name and a valid email.';return}
-  var f=new URLSearchParams();f.append(FU.f.stage,'Coding course waitlist');f.append(FU.f.name,n);f.append(FU.f.email,em);f.append(FU.f.pkg,'Coding course');
+  var f=new URLSearchParams();f.append(FU.f.stage,'Coding course waitlist');f.append(FU.f.name,n);f.append(FU.f.email,em);f.append(FU.f.pkg,'Coding course');f.append('entry.1931522034','Coding (CPC)');f.append('entry.207673909','roadmap');
   fetch(FU.u,{method:'POST',mode:'no-cors',body:f}).then(function(){cw.hidden=true;m.className='small cwm ok';m.textContent='You are on the coding waitlist. We will email you when the course opens.'}).catch(function(){m.className='small cwm err';m.textContent='Something went wrong. Please try again.'})});
  paint(true);
 })();

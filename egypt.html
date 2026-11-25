@@ -362,6 +362,10 @@ document.getElementById('opa-yes').onclick=function(){set('yes')};document.getEl
 </script>
 <script>
 (function(){
+var SRC=(function(){var v='';try{v=sessionStorage.getItem('opa_src')||''}catch(e){}
+var q=new URLSearchParams(location.search),u=[q.get('utm_source'),q.get('utm_medium'),q.get('utm_campaign')].filter(Boolean).join('/');
+if(u){v=u}else if(!v&&document.referrer){try{var h=new URL(document.referrer).hostname;if(h&&h!==location.hostname)v='ref:'+h}catch(e){}}
+v=String(v).toLowerCase().replace(/[^a-z0-9._\/:\-]/g,'').slice(0,80);try{if(v)sessionStorage.setItem('opa_src',v)}catch(e){}return v})();
 var API='https://script.google.com/macros/s/AKfycbx_BOxj1ulFHj_xM67iDGVSOOMYmvIMSTqslfIXMbT4olxg97XxRf4T0S9tWhcoj1FwSw/exec';
 var GOV=["Cairo","Giza","Alexandria","Qalyubia","Sharqia","Dakahlia","Gharbia","Monufia","Beheira","Kafr El Sheikh","Damietta","Port Said","Ismailia","Suez","Faiyum","Beni Suef","Minya","Asyut","Sohag","Qena","Luxor","Aswan","Red Sea","New Valley","Matrouh","North Sinai","South Sinai"];
 var f=document.getElementById('eg-form'),sel=document.getElementById('f-gov');
@@ -383,7 +387,7 @@ if(!items.length)return err('Please choose at least one item.');
 if(pr&&!gov)return err('Please choose your governorate for delivery.');
 if(!document.getElementById('f-cons').checked)return err('Please tick the agreement box.');
 var btn=document.getElementById('f-btn');btn.disabled=true;btn.textContent='Please wait…';
-var body=new URLSearchParams({name:name,email:email,items:items.join(','),gov:pr?gov:'',consent:'yes',website:document.getElementById('f-web').value});
+var body=new URLSearchParams({name:name,email:email,items:items.join(','),gov:pr?gov:'',consent:'yes',website:document.getElementById('f-web').value,src:SRC});
 fetch(API,{method:'POST',body:body}).then(function(r){return r.json()}).then(function(d){
 if(d&&d.ok&&d.url){var u=null;try{u=new URL(d.url)}catch(e){}if(u&&u.protocol==='https:'&&(u.hostname==='xpay.app'||u.hostname.slice(-9)==='.xpay.app')){btn.textContent='Opening secure payment…';try{gtag('event','egypt_checkout')}catch(e){}location.href=d.url;return}}
 if(d&&d.ok&&d.print){f.hidden=true;document.getElementById('f-id').textContent=d.id||'';document.getElementById('f-ok').hidden=false;try{gtag('event','egypt_order_print')}catch(e){}return}

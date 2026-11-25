@@ -187,6 +187,7 @@ fieldset{border:0;padding:0;margin:4px 0 14px}legend{font-weight:700;color:var(-
 .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .err{color:#b42318;background:#fef3f2;border:1px solid #fecdca;border-radius:8px;padding:10px 12px;font-size:14.5px;margin:0 0 14px}
 .ok{background:var(--teal-l);border-radius:12px;padding:20px}.ok h3{color:var(--teal)}.ok p{margin:0}
+.ord .secure{display:flex;gap:12px;align-items:center;border:1px solid var(--teal);background:var(--teal-l);border-radius:10px;padding:12px 14px;margin:0 0 12px}.ord .secure .lk{font-size:22px;line-height:1}.ord .secure b{display:block;color:var(--navy);font-size:15px}.ord .secure span{font-size:13.5px;color:#33414f}
 #f-btn{border:0;font:inherit;font-weight:700;width:100%}#f-btn[disabled]{opacity:.6;cursor:wait}
 @media (max-width:600px){.row2{grid-template-columns:1fr}.ord{padding:20px 16px}.ord .itm{flex-wrap:wrap}}
 .eg-bundle{border:2px solid var(--teal);background:var(--teal-l);border-radius:16px;padding:22px 24px;margin:8px 0 34px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between}
@@ -326,8 +327,9 @@ fieldset{border:0;padding:0;margin:4px 0 14px}legend{font-weight:700;color:var(-
 <input type="text" name="website" id="f-web" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
 <label class="cons"><input type="checkbox" id="f-cons"><span>I agree to the <a href="/egypt-terms" target="_blank">Terms</a> and <a href="/egypt-refund-policy" target="_blank">Refund policy</a>, and to OptimalPulse Academy using my name and email only to process this order (see our <a href="/privacy" target="_blank">privacy policy</a>).</span></label>
 <p id="f-err" class="err" role="alert" hidden></p>
+<div class="secure"><span class="lk">🔒</span><div><b>Secured by XPay</b><span>Visa &middot; Mastercard &middot; you enter your card on XPay&#39;s payment page, so your card details never reach us.</span></div></div>
 <button class="btn btn-dark" id="f-btn" type="submit">Continue to payment</button>
-<p class="small">🔒 You pay on the secure XPay page; we never see your card details. Your PDF is for your personal use and is stamped with your email.</p>
+<p class="small">Your PDF is for your personal use and is stamped with your email.</p>
 <p class="small"><b>All sales are final</b>, except items that are not delivered or arrive damaged. See the <a href="/egypt-refund-policy" target="_blank">refund policy</a>.</p>
 </form>
 <div id="f-ok" class="ok" hidden role="status"><h3>Order received ✓</h3><p>Your order number is <b id="f-id"></b>. We have emailed you the next step. Please check your Spam folder too.</p></div>

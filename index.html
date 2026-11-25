@@ -178,6 +178,23 @@ a.btn.btn-dark.gumroad-button{background:var(--navy);color:#fff}
 .opt a.btn.gumroad-button,.pcard a.btn.gumroad-button{padding:11px 14px;font-size:15px}
 a.link.gumroad-button{all:unset;cursor:pointer;color:var(--teal);font-weight:700;font-family:inherit}
 a.gumroad-button .gumroad-button-logo,a.gumroad-button span.logo-full{display:none!important}
+
+/* Egypt launch star badge */
+.eg-burst{--s:150px;position:relative;display:grid;place-items:center;width:var(--s);height:var(--s);text-decoration:none!important;color:#0f2b46;text-align:center;filter:drop-shadow(0 10px 16px rgba(214,51,132,.30));animation:egb 3.4s ease-in-out infinite;margin:0 auto 16px;z-index:2}
+.eg-burst::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,#ff5ea8 0%,#ff9fcd 35%,#ffd36e 68%,#f2ad00 100%);clip-path:polygon(50.0% 0.0%,58.0% 9.8%,69.1% 3.8%,72.8% 15.9%,85.4% 14.6%,84.1% 27.2%,96.2% 30.9%,90.2% 42.0%,100.0% 50.0%,90.2% 58.0%,96.2% 69.1%,84.1% 72.8%,85.4% 85.4%,72.8% 84.1%,69.1% 96.2%,58.0% 90.2%,50.0% 100.0%,42.0% 90.2%,30.9% 96.2%,27.2% 84.1%,14.6% 85.4%,15.9% 72.8%,3.8% 69.1%,9.8% 58.0%,0.0% 50.0%,9.8% 42.0%,3.8% 30.9%,15.9% 27.2%,14.6% 14.6%,27.2% 15.9%,30.9% 3.8%,42.0% 9.8%)}
+.eg-burst::after{content:"";position:absolute;inset:13%;border-radius:50%;border:2px dashed rgba(255,255,255,.75)}
+.eg-burst-in{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.1;transform:rotate(-8deg)}
+.eg-burst b{font-size:calc(var(--s)*.072);font-weight:800;letter-spacing:.5px;white-space:nowrap}
+.eg-burst .big{font-size:calc(var(--s)*.118);font-weight:800;white-space:nowrap}
+.eg-burst small{font-size:calc(var(--s)*.07);font-weight:700;color:#5a1238;white-space:nowrap}
+.eg-burst .sp{position:absolute;color:#f2ad00;font-size:15px;line-height:1;animation:egtw 1.9s ease-in-out infinite;pointer-events:none}
+.eg-burst .sp1{top:-6px;left:8px}.eg-burst .sp2{bottom:2px;right:-4px;color:#ff5ea8;animation-delay:.6s}.eg-burst .sp3{top:18px;right:-10px;font-size:11px;animation-delay:1.1s}
+.eg-burst:hover{animation-play-state:paused;transform:scale(1.07)}
+.eg-burst:focus-visible{outline:3px solid #0f2b46;outline-offset:4px;border-radius:50%}
+@keyframes egb{0%,100%{transform:rotate(-7deg) scale(1)}50%{transform:rotate(5deg) scale(1.05)}}
+@keyframes egtw{0%,100%{opacity:.25;transform:scale(.7)}50%{opacity:1;transform:scale(1.15)}}
+@media (prefers-reduced-motion:reduce){.eg-burst,.eg-burst .sp{animation:none}}
+@media (min-width:1300px){.hero .eg-burst{position:absolute;top:44px;right:-200px;margin:0}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"EducationalOrganization","@id":"https://optimalpulseacademy.com/#org","name":"OptimalPulse Academy","url":"https://optimalpulseacademy.com/","logo":"https://optimalpulseacademy.com/logo-badge.png","image":"https://optimalpulseacademy.com/og-image.jpg","description":"US medical billing, coding and credentialing training: study guides, a free career roadmap and articles, developed and reviewed by an AAPC-certified medical coder with nearly 5 years of hands-on US medical billing experience.","email":"info@optimalpulseacademy.com","telephone":"+1-508-297-6202","address":{"@type":"PostalAddress","addressLocality":"Giza","addressCountry":"EG"},"sameAs":["https://www.facebook.com/profile.php?id=61596282907353","https://www.instagram.com/optimalpulseacademy/","https://www.linkedin.com/company/optimalpulse-academy","https://www.youtube.com/@OptimalPulseAcademy","https://www.pinterest.com/optimalpulseacademy/"]},{"@type":"WebSite","@id":"https://optimalpulseacademy.com/#website","url":"https://optimalpulseacademy.com/","name":"OptimalPulse Academy","publisher":{"@id":"https://optimalpulseacademy.com/#org"}}]}</script>
 </head>
@@ -199,7 +216,8 @@ a.gumroad-button .gumroad-button-logo,a.gumroad-button span.logo-full{display:no
 </header>
 <main id="top">
 <div class="hero">
-<div class="wrap">
+<div class="wrap" style="position:relative">
+<a class="eg-burst" href="/egypt" aria-label="Now available in Egypt: pay by card in Egyptian pounds"><span class="eg-burst-in"><b>NOW AVAILABLE</b><span class="big">in Egypt</span><small>Pay by card in EGP</small></span><span class="sp sp1" aria-hidden="true">✦</span><span class="sp sp2" aria-hidden="true">✦</span><span class="sp sp3" aria-hidden="true">✦</span></a>
 <svg class="pulse" viewBox="0 0 220 40" aria-hidden="true"><polyline fill="none" stroke="#14a0a8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" points="2,24 82,24 92,24 101,6 113,38 123,14 131,24 218,24"/></svg>
 <p class="eyebrow">OptimalPulse Academy</p>
 <h1>Practical training for US medical billing, RCM and credentialing.</h1>

@@ -189,6 +189,11 @@ fieldset{border:0;padding:0;margin:4px 0 14px}legend{font-weight:700;color:var(-
 .ok{background:var(--teal-l);border-radius:12px;padding:20px}.ok h3{color:var(--teal)}.ok p{margin:0}
 #f-btn{border:0;font:inherit;font-weight:700;width:100%}#f-btn[disabled]{opacity:.6;cursor:wait}
 @media (max-width:600px){.row2{grid-template-columns:1fr}.ord{padding:20px 16px}.ord .itm{flex-wrap:wrap}}
+.eg-bundle{border:2px solid var(--teal);background:var(--teal-l);border-radius:16px;padding:22px 24px;margin:8px 0 34px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between}
+.eg-bundle>div{min-width:0;flex:1 1 300px}.eg-bundle h3{margin:6px 0 6px}.eg-bundle p{margin:0;color:#33414f}
+.eg-bundle .price{font-size:28px;font-weight:800;color:var(--navy);white-space:nowrap}.eg-bundle .price small{font-size:14px;font-weight:700;color:var(--muted)}
+.eg-bundle .was{display:block;font-size:14px;font-weight:600;color:var(--muted)}.eg-bundle .was s{color:var(--muted)}
+.ord .itm em{display:block;font-style:normal;font-weight:500;font-size:13px;color:var(--teal)}
 [hidden]{display:none!important}
 
 /* Egypt launch star badge */
@@ -260,6 +265,14 @@ fieldset{border:0;padding:0;margin:4px 0 14px}legend{font-weight:700;color:var(-
 </div>
 </div>
 </div>
+<div class="eg-bundle">
+<div>
+<span class="tag" style="position:static;display:inline-block;background:#ffb627;color:#0f2b46;font-weight:800;font-size:12px;padding:5px 11px;border-radius:999px">Bundle &middot; Save 99.99 EGP</span>
+<h3>Both printed books</h3>
+<p>From Zero to CPB&reg; + The Complete Guide to Provider Credentialing &amp; Enrollment, printed and delivered together in one parcel anywhere in Egypt.</p>
+</div>
+<div class="price">899.99 <small>EGP</small><span class="was">instead of <s>999.98 EGP</s></span></div>
+</div>
 <div class="prod">
 <img src="/toolkit-cover.jpg" width="612" height="792" alt="Cover of the Provider Credentialing Toolkit">
 <div>
@@ -303,6 +316,7 @@ fieldset{border:0;padding:0;margin:4px 0 14px}legend{font-weight:700;color:var(-
 <label class="itm"><input type="checkbox" value="CPB_PRINT" data-p="649.99" data-print><span>From Zero to CPB&reg; &middot; Printed</span><b>649.99 EGP</b></label>
 <label class="itm"><input type="checkbox" value="CRED_PDF" data-p="249.99"><span>Credentialing guide &middot; PDF</span><b>249.99 EGP</b></label>
 <label class="itm"><input type="checkbox" value="CRED_PRINT" data-p="349.99" data-print><span>Credentialing guide &middot; Printed</span><b>349.99 EGP</b></label>
+<label class="itm"><input type="checkbox" value="PRINT2" data-p="899.99" data-print><span>Both printed books (CPB&reg; + Credentialing)<em>One parcel &middot; you save 99.99 EGP</em></span><b>899.99 EGP</b></label>
 <label class="itm"><input type="checkbox" value="KIT" data-p="99.99"><span>Provider Credentialing Toolkit</span><b>99.99 EGP</b></label>
 </fieldset>
 <label id="gov-wrap" hidden>Governorate (for delivery)
@@ -355,7 +369,11 @@ GOV.forEach(function(g){var o=document.createElement('option');o.value=o.textCon
 var boxes=[].slice.call(f.querySelectorAll('fieldset input'));
 function upd(){var s=0,pr=false;boxes.forEach(function(b){if(b.checked){s+=parseFloat(b.dataset.p);if(b.hasAttribute('data-print'))pr=true}});
 document.getElementById('f-sub').textContent=s.toFixed(2)+' EGP';document.getElementById('gov-wrap').hidden=!pr;document.getElementById('f-delnote').hidden=!pr;return pr}
-boxes.forEach(function(b){b.addEventListener('change',upd)});
+function bx(v){return boxes.filter(function(b){return b.value===v})[0]}
+var bCP=bx('CPB_PRINT'),bCR=bx('CRED_PRINT'),bB=bx('PRINT2');
+function pick(ev){var t=ev.target;if(t===bB&&bB.checked){bCP.checked=false;bCR.checked=false}
+else if((t===bCP||t===bCR)&&t.checked){if(bB.checked){bB.checked=false}if(bCP.checked&&bCR.checked){bCP.checked=false;bCR.checked=false;bB.checked=true}}upd()}
+boxes.forEach(function(b){b.addEventListener('change',pick)});
 function err(m){var e=document.getElementById('f-err');e.textContent=m;e.hidden=!m}
 f.addEventListener('submit',function(ev){ev.preventDefault();err('');
 var name=document.getElementById('f-name').value.trim(),email=document.getElementById('f-email').value.trim(),items=boxes.filter(function(b){return b.checked}).map(function(b){return b.value}),pr=upd(),gov=sel.value;

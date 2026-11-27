@@ -89,6 +89,7 @@ a.btnlink{display:inline-block;text-decoration:none;font:600 .92rem var(--body);
 .pkg.unsure .pn{white-space:nowrap}
 .pricenote{font-size:.82rem;color:var(--muted)}
 .pkg .pp .was{font-weight:600;font-size:.8em;color:var(--muted);text-decoration:line-through;text-decoration-thickness:2px;margin-right:6px}
+.pkg .pp .pwait{display:block;font-family:var(--body,inherit);font-weight:500;font-size:.82rem;color:var(--muted);font-style:italic}
 .pkg .pp .eb{display:block;font-family:var(--body,inherit);font-weight:500;font-size:.78rem;line-height:1.35;color:var(--muted);margin-top:4px}
 .startrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .lbl{display:block;font-weight:600;margin-bottom:6px}
@@ -588,8 +589,9 @@ const COUNTRIES=["Egypt","Saudi Arabia","United Arab Emirates","Qatar","Kuwait",
 const CC={EG:"Egypt",SA:"Saudi Arabia",AE:"United Arab Emirates",QA:"Qatar",KW:"Kuwait",OM:"Oman",BH:"Bahrain",JO:"Jordan",LB:"Lebanon",IQ:"Iraq",MA:"Morocco",DZ:"Algeria",TN:"Tunisia",LY:"Libya",SD:"Sudan",PK:"Pakistan",IN:"India",BD:"Bangladesh",LK:"Sri Lanka",NP:"Nepal",PH:"Philippines",MY:"Malaysia",ID:"Indonesia",NG:"Nigeria",KE:"Kenya",GH:"Ghana",ZA:"South Africa",US:"United States",CA:"Canada",GB:"United Kingdom",DE:"Germany"};
 let DETECTED="";
 $("i-country").innerHTML='<option value="">Choose your country</option>'+COUNTRIES.map(c=>`<option>${c}</option>`).join("");
-function cur(){return $("i-country").value==="Egypt"||(!$("i-country").value&&DETECTED==="EG")?"EGP":"USD"}
-function paintPrices(){const c=cur();document.querySelectorAll("[data-p]").forEach(e=>{const k=e.dataset.p,reg=PRICES[c][k],ear=EARLYP[c]&&EARLYP[c][k];if(EARLY&&ear){e.innerHTML='<s class="was" aria-label="Regular price '+reg+'">'+reg+'</s> '+ear+'<span class="eb">Early-bird price for waitlist members who join by December 20. Regular price from December 21.</span>'}else e.textContent=reg});
+function cur(){const v=$("i-country").value;return !v?"":(v==="Egypt"?"EGP":"USD")}
+function paintPrices(){const c=cur();if(!c){document.querySelectorAll("[data-p]").forEach(e=>{e.innerHTML='<span class="pwait">Choose your country above to see the price</span>'});document.querySelectorAll(".egonly").forEach(e=>{e.hidden=true;const i=e.querySelector("input");if(i.checked)i.checked=false});$("pricenote").textContent="Prices appear in your currency once you choose your country above.";return}
+ document.querySelectorAll("[data-p]").forEach(e=>{const k=e.dataset.p,reg=PRICES[c][k],ear=EARLYP[c]&&EARLYP[c][k];if(EARLY&&ear){e.innerHTML='<s class="was" aria-label="Regular price '+reg+'">'+reg+'</s> '+ear+'<span class="eb">Early-bird price for waitlist members who join by December 20. Regular price from December 21.</span>'}else e.textContent=reg});
  document.querySelectorAll(".egonly").forEach(e=>{e.hidden=c!=="EGP";if(c!=="EGP"){const i=e.querySelector("input");if(i.checked)i.checked=false}});
  $("pricenote").textContent=(c==="EGP"?"Prices shown in Egyptian pounds for buyers in Egypt.":"Prices shown in US dollars for buyers outside Egypt.")+(EARLY?" Join by December 20 to keep the early-bird course price when the course opens.":"");}
 $("i-country").addEventListener("change",paintPrices);
@@ -597,7 +599,6 @@ $("i-country").addEventListener("change",paintPrices);
  try{const tz=Intl.DateTimeFormat().resolvedOptions().timeZone||"";if(tz==="Africa/Cairo")DETECTED="EG"}catch(e){}
  paintPrices();
  try{const r=await fetch("/cdn-cgi/trace",{cache:"no-store"});if(r.ok){const m=(await r.text()).match(/^loc=([A-Z]{2})$/m);if(m)DETECTED=m[1]}}catch(e){}
- if(DETECTED&&!$("i-country").value)$("i-country").value=CC[DETECTED]||"Other";
  paintPrices();})();
 function val(n){const e=document.querySelector(`input[name="${n}"]:checked`);return e?e.value:""}
 function vals(n){return [...document.querySelectorAll(`input[name="${n}"]:checked`)].map(e=>e.value).join(", ")}

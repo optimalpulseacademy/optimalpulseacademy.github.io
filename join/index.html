@@ -82,6 +82,7 @@ a.btnlink{display:inline-block;text-decoration:none;font:600 .92rem var(--body);
 .pkg.unsure{grid-column:1/-1;flex-direction:row;align-items:center;gap:10px;padding:12px 16px}
 .pkg.unsure .pn{white-space:nowrap}
 .pricenote{font-size:.82rem;color:var(--muted)}
+.pkg .pp .eb{display:block;font-family:var(--body,inherit);font-weight:500;font-size:.78rem;line-height:1.35;color:var(--muted);margin-top:4px}
 .startrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .lbl{display:block;font-weight:600;margin-bottom:6px}
 .ints{display:flex;flex-wrap:wrap;gap:10px}
@@ -334,9 +335,9 @@ kbd{font:600 .72rem var(--mono);border:1px solid var(--line);border-bottom-width
       <div class="pkgs" role="radiogroup" aria-label="Package options" id="pkgs">
         <label class="pkg"><input type="radio" name="pkg" value="Study guide PDF"><span class="pn">Study guide (PDF)</span><span class="pp" data-p="guide"></span><ul><li>From Zero to CPB, 177 pages</li><li>Read on any device</li></ul></label>
         <label class="pkg"><input type="radio" name="pkg" value="Study guide + 3 mocks"><span class="pn">Study guide + 3 mock exams</span><span class="pp" data-p="guidemock"></span><ul><li>Study guide PDF</li><li>Three full 135-question timed mocks</li><li>Explanations for every answer</li></ul></label>
-        <label class="pkg"><input type="radio" name="pkg" value="Course"><span class="pn">Course</span><span class="pp" data-p="course"></span><ul><li>7 self-paced modules from zero</li><li>Quizzes with a 70% pass mark</li><li>3 full mock exams included</li><li>Certificate of completion</li><li>One year of access</li></ul></label>
+        <label class="pkg"><input type="radio" name="pkg" value="Course"><span class="pn">Course</span><span class="pp" data-p="course"></span><ul><li>9 self-paced modules from zero</li><li>Quizzes with a 70% pass mark</li><li>3 full mock exams included</li><li>Certificate of completion</li><li>One year of access</li></ul></label>
         <label class="pkg"><span class="tag">Best value</span><input type="radio" name="pkg" value="Course + guide PDF"><span class="pn">Course + study guide PDF</span><span class="pp" data-p="bundle"></span><ul><li>Everything in the course</li><li>Plus the study guide PDF</li><li>3 mock exams included</li></ul></label>
-        <label class="pkg egonly"><span class="tag" style="background:var(--teal-soft);color:var(--teal)">Egypt only</span><input type="radio" name="pkg" value="Course + printed guide (Egypt)"><span class="pn">Course + printed study guide</span><span class="pp">3,250 EGP</span><ul><li>Everything in the course</li><li>Printed From Zero to CPB book</li><li>Delivery anywhere in Egypt included</li><li>3 mock exams included</li></ul></label>
+        <label class="pkg egonly"><span class="tag" style="background:var(--teal-soft);color:var(--teal)">Egypt only</span><input type="radio" name="pkg" value="Course + printed guide (Egypt)"><span class="pn">Course + printed study guide</span><span class="pp" data-p="printed"></span><ul><li>Everything in the course</li><li>Printed From Zero to CPB book</li><li>Delivery anywhere in Egypt included</li><li>3 mock exams included</li></ul></label>
         <label class="pkg unsure"><input type="radio" name="pkg" value="Not sure yet"><span class="pn">Not sure yet</span><span class="small muted">That's fine. You'll still get the exam and the launch news.</span></label>
       </div>
       <p class="small muted">Nothing is charged now. Already bought the study guide PDF? You can upgrade to the course + guide bundle within 7 days of your purchase and pay only the difference. If you buy the guide before launch, your 7 days start on the day the course opens.</p>
@@ -573,15 +574,17 @@ function perm(n){const p=[...Array(n).keys()];for(let i=n-1;i>0;i--){const j=Mat
 
 /* ---------- waitlist: country, prices, form, submission ---------- */
 const FORM={"url": "https://docs.google.com/forms/d/e/1FAIpQLSfZuwn4unWHO6LWqY0v5P9C8LsO-AJF9NZT3b44d-c2nkkvtg/formResponse", "fields": {"stage": "entry.2043634291", "name": "entry.21170117", "email": "entry.1528377650", "country": "entry.2106404651", "detected": "entry.302519155", "currency": "entry.420634812", "role": "entry.885056963", "med": "entry.348610991", "exp": "entry.1748878949", "cert": "entry.313063422", "goal": "entry.1346364995", "pkg": "entry.2144943833", "attempt": "entry.2081470558", "score": "entry.1470017725", "correct": "entry.741159800", "time": "entry.991247628", "areas": "entry.1374456410", "src": "entry.207673909", "interest": "entry.1931522034"}};
-const PRICES={EGP:{guide:"399.99 EGP",guidemock:"849.99 EGP",course:"2,799 EGP",bundle:"3,000 EGP"},USD:{guide:"$9.99",guidemock:"$24.99",course:"$74.99",bundle:"$79.99"}};
+const EARLY_END=new Date("2026-12-20T23:59:59+02:00");const EARLY=Date.now()<=EARLY_END.getTime();
+const PRICES={EGP:{guide:"399.99 EGP",guidemock:"849.99 EGP",course:"3,450 EGP",bundle:"3,699.99 EGP",printed:"3,949.99 EGP"},USD:{guide:"$9.99",guidemock:"$24.99",course:"$119",bundle:"$123.99"}};
+const EARLYP={EGP:{course:"2,799 EGP",bundle:"3,000 EGP",printed:"3,250 EGP"},USD:{course:"$74.99",bundle:"$79.99"}};
 const COUNTRIES=["Egypt","Saudi Arabia","United Arab Emirates","Qatar","Kuwait","Oman","Bahrain","Jordan","Lebanon","Iraq","Morocco","Algeria","Tunisia","Libya","Sudan","Pakistan","India","Bangladesh","Sri Lanka","Nepal","Philippines","Malaysia","Indonesia","Nigeria","Kenya","Ghana","South Africa","United States","Canada","United Kingdom","Germany","Other"];
 const CC={EG:"Egypt",SA:"Saudi Arabia",AE:"United Arab Emirates",QA:"Qatar",KW:"Kuwait",OM:"Oman",BH:"Bahrain",JO:"Jordan",LB:"Lebanon",IQ:"Iraq",MA:"Morocco",DZ:"Algeria",TN:"Tunisia",LY:"Libya",SD:"Sudan",PK:"Pakistan",IN:"India",BD:"Bangladesh",LK:"Sri Lanka",NP:"Nepal",PH:"Philippines",MY:"Malaysia",ID:"Indonesia",NG:"Nigeria",KE:"Kenya",GH:"Ghana",ZA:"South Africa",US:"United States",CA:"Canada",GB:"United Kingdom",DE:"Germany"};
 let DETECTED="";
 $("i-country").innerHTML='<option value="">Choose your country</option>'+COUNTRIES.map(c=>`<option>${c}</option>`).join("");
 function cur(){return $("i-country").value==="Egypt"||(!$("i-country").value&&DETECTED==="EG")?"EGP":"USD"}
-function paintPrices(){const c=cur();document.querySelectorAll("[data-p]").forEach(e=>e.textContent=PRICES[c][e.dataset.p]);
+function paintPrices(){const c=cur();document.querySelectorAll("[data-p]").forEach(e=>{const k=e.dataset.p,reg=PRICES[c][k],ear=EARLYP[c]&&EARLYP[c][k];if(EARLY&&ear){e.innerHTML=ear+'<span class="eb">Early-bird price for waitlist members who join by December 20. From December 21: '+reg+'</span>'}else e.textContent=reg});
  document.querySelectorAll(".egonly").forEach(e=>{e.hidden=c!=="EGP";if(c!=="EGP"){const i=e.querySelector("input");if(i.checked)i.checked=false}});
- $("pricenote").textContent=c==="EGP"?"Prices shown in Egyptian pounds for buyers in Egypt.":"Prices shown in US dollars for buyers outside Egypt.";}
+ $("pricenote").textContent=(c==="EGP"?"Prices shown in Egyptian pounds for buyers in Egypt.":"Prices shown in US dollars for buyers outside Egypt.")+(EARLY?" Join by December 20 to keep the early-bird course price when the course opens.":"");}
 $("i-country").addEventListener("change",paintPrices);
 (async function detect(){
  try{const tz=Intl.DateTimeFormat().resolvedOptions().timeZone||"";if(tz==="Africa/Cairo")DETECTED="EG"}catch(e){}

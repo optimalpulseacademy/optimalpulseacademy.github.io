@@ -88,6 +88,7 @@ a.btnlink{display:inline-block;text-decoration:none;font:600 .92rem var(--body);
 .pkg.unsure{grid-column:1/-1;flex-direction:row;align-items:center;gap:10px;padding:12px 16px}
 .pkg.unsure .pn{white-space:nowrap}
 .pricenote{font-size:.82rem;color:var(--muted)}
+.pkg .pp .was{font-weight:600;font-size:.8em;color:var(--muted);text-decoration:line-through;text-decoration-thickness:2px;margin-right:6px}
 .pkg .pp .eb{display:block;font-family:var(--body,inherit);font-weight:500;font-size:.78rem;line-height:1.35;color:var(--muted);margin-top:4px}
 .startrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .lbl{display:block;font-weight:600;margin-bottom:6px}
@@ -588,7 +589,7 @@ const CC={EG:"Egypt",SA:"Saudi Arabia",AE:"United Arab Emirates",QA:"Qatar",KW:"
 let DETECTED="";
 $("i-country").innerHTML='<option value="">Choose your country</option>'+COUNTRIES.map(c=>`<option>${c}</option>`).join("");
 function cur(){return $("i-country").value==="Egypt"||(!$("i-country").value&&DETECTED==="EG")?"EGP":"USD"}
-function paintPrices(){const c=cur();document.querySelectorAll("[data-p]").forEach(e=>{const k=e.dataset.p,reg=PRICES[c][k],ear=EARLYP[c]&&EARLYP[c][k];if(EARLY&&ear){e.innerHTML=ear+'<span class="eb">Early-bird price for waitlist members who join by December 20. From December 21: '+reg+'</span>'}else e.textContent=reg});
+function paintPrices(){const c=cur();document.querySelectorAll("[data-p]").forEach(e=>{const k=e.dataset.p,reg=PRICES[c][k],ear=EARLYP[c]&&EARLYP[c][k];if(EARLY&&ear){e.innerHTML='<s class="was" aria-label="Regular price '+reg+'">'+reg+'</s> '+ear+'<span class="eb">Early-bird price for waitlist members who join by December 20. Regular price from December 21.</span>'}else e.textContent=reg});
  document.querySelectorAll(".egonly").forEach(e=>{e.hidden=c!=="EGP";if(c!=="EGP"){const i=e.querySelector("input");if(i.checked)i.checked=false}});
  $("pricenote").textContent=(c==="EGP"?"Prices shown in Egyptian pounds for buyers in Egypt.":"Prices shown in US dollars for buyers outside Egypt.")+(EARLY?" Join by December 20 to keep the early-bird course price when the course opens.":"");}
 $("i-country").addEventListener("change",paintPrices);

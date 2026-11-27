@@ -450,6 +450,7 @@ function finish(){clearInterval(tick);S.status="done";clear();
  const plan=[];
  weak.slice(0,3).forEach(p=>plan.push(`<b>Review ${AREAS[p.a]}.</b> You got ${p.g} of ${p.t}. Reread the reasons below for every miss in this area, then practice 10 more questions on it.`));
  if(used/N*135>4*3600)plan.push(`<b>Work on pace.</b> At your speed, 135 questions would take ${fmt(used/N*135)}. The exam gives you 4 hours, so aim for under 1 minute 45 seconds a question.`);
+ else if(used/N<20)plan.push(`<b>Slow down a little.</b> You averaged ${Math.max(1,Math.round(used/N))} seconds a question. On exam day, read every case fully: you have about 1 minute 45 seconds for each question.`);
  else plan.push(`<b>Keep your pace.</b> At ${Math.round(used/N)} seconds a question you'd finish the real exam in time. Practice under the full 4-hour clock to build stamina.`);
  if(S.flag.some(Boolean))plan.push(`<b>Look at your flagged questions.</b> Use the Flagged filter below. They show where you were unsure, even when you guessed right.`);
  plan.push(`<b>Take a full-length mock.</b> 135 questions in 4 hours is the best way to check you're ready.`);
